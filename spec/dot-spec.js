@@ -24,7 +24,7 @@ define([
 
 			dot(stack);
 
-			jasmine.expect(console.log).toHaveBeenCalledWith([2]);
+			jasmine.expect(console.log).toHaveBeenCalledWith(2);
 		});
 	});
 
