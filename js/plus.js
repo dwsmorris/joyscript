@@ -6,5 +6,7 @@ define(function () {
 			stack.pop() +
 			stack.pop()
 		);
+
+		return stack;
 	};
 });

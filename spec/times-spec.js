@@ -10,11 +10,7 @@ define([
 
 	jasmine.describe("*", function() {
 		jasmine.it("[1, 2] => [2]", function () {
-			var stack = [1, 2];
-
-			times(stack);
-
-			jasmine.expect(stack).toEqual([2]);
+			jasmine.expect(times([1, 2])).toEqual([2]);
 		});
 	});
 

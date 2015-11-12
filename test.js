@@ -2,12 +2,23 @@
 
 require.config({
 	baseUrl: "./",
-	map: {
-		"*": {
-			"boot": "jys_boot",
-			"ramda": "jys_ramda",
-			"jasmine": "jys_jasmine",
-			"jasmine-html": "jys_jasmine-html"
+	paths: {
+		"ramda": "./dependencies/ramda/dist/ramda",
+		"jasmine": "./dependencies/jasmine/lib/jasmine-core/jasmine",
+		"jasmine-html": "./dependencies/jasmine/lib/jasmine-core/jasmine-html",
+		"boot": "./dependencies/jasmine/lib/jasmine-core/boot"
+	},
+	shim: {
+		'jasmine': {
+			exports: 'window'
+		},
+		'jasmine-html': {
+			deps: ['jasmine'],
+			exports: 'jasmine'
+		},
+		'boot': {
+			deps: ['jasmine-html'],
+			exports: 'jasmine'
 		}
 	}
 });
@@ -24,9 +35,10 @@ require(["./config"], function (config) {
 	require(['boot'], function (
     ) {
 		require([
-			"spec/plus-spec",
-			"spec/times-spec",
-			"spec/dot-spec"
+			"./spec/plus-spec",
+			"./spec/times-spec",
+			"./spec/dot-spec",
+			"./spec/number-spec"
 		], function (
 		) {
 			// Initialize the HTML Reporter and execute the environment (setup by `boot.js`)
