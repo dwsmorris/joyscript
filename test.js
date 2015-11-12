@@ -2,23 +2,12 @@
 
 require.config({
 	baseUrl: "./",
-	paths: {
-		"ramda": "dependencies/ramda/dist/ramda",
-		"jasmine": "dependencies/jasmine/lib/jasmine-core/jasmine",
-		"jasmine-html": "dependencies/jasmine/lib/jasmine-core/jasmine-html",
-		"boot": "dependencies/jasmine/lib/jasmine-core/boot"
-	},
-	shim: {
-		'jasmine': {
-			exports: 'window'
-		},
-		'jasmine-html': {
-			deps: ['jasmine'],
-			exports: 'jasmine'
-		},
-		'boot': {
-			deps: ['jasmine-html'],
-			exports: 'jasmine'
+	map: {
+		"*": {
+			"boot": "jys_boot",
+			"ramda": "jys_ramda",
+			"jasmine": "jys_jasmine",
+			"jasmine-html": "jys_jasmine-html"
 		}
 	}
 });
@@ -27,19 +16,22 @@ require.config({
 // AMD or UMD specs. `boot.js` will do a bunch of configuration and attach it's initializers to `window.onload()`. Because
 // we are using RequireJS `window.onload()` has already been triggered so we have to manually call it again. This will
 // initialize the HTML Reporter and execute the environment.
-require(["./config", 'boot'], function (config) {
+require(["./config"], function (config) {
 
 	require.config(config);
 
 	// Load the specs
-    require([
-		"spec/plus-spec",
-		"spec/times-spec",
-		"spec/dot-spec"
-    ], function (
+	require(['boot'], function (
     ) {
-	    // Initialize the HTML Reporter and execute the environment (setup by `boot.js`)
-		window.onload();
+		require([
+			"spec/plus-spec",
+			"spec/times-spec",
+			"spec/dot-spec"
+		], function (
+		) {
+			// Initialize the HTML Reporter and execute the environment (setup by `boot.js`)
+			window.onload();
+		});
 	});
 
 });
